@@ -10,3 +10,7 @@
 1. husky & lint-staged
    - Automatically run "eslint --fix", "prettier --write", "git add ." before commit.
 1. prop-types
+
+
+**Requires clearing storage before use!!**
+`$ git remote remove origin`
