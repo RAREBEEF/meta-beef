@@ -1,0 +1,52 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: {
+    top: 5px;
+    bottom: 150px;
+  }
+
+  .nav__item {
+    .Link {
+      display: flex;
+      align-items: center;
+      color: #221718;
+      text-decoration: none;
+    }
+
+    &.nav__item--home {
+      margin: {
+        left: 3vw;
+      }
+      .logo-text {
+        line-height: 50px;
+        font-size: 30px;
+        font-weight: 900;
+        padding-top: 5px;
+      }
+      .logo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    }
+
+    &.nav__item--profile {
+      margin: {
+        right: 3vw;
+      }
+      .profile-text {
+        line-height: 50px;
+        font-weight: 600;
+        padding-top: 5px;
+        margin-right: 10px;
+      }
+      .profile-img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
