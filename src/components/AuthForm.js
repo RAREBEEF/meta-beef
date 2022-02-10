@@ -1,9 +1,7 @@
 import classNames from "classnames";
-import React from "react";
-import { useState } from "react/cjs/react.development";
+import React, { useState } from "react";
 import { authService } from "../fbase";
 import styles from "./AuthForm.module.scss";
-
 export default function AuthForm() {
   // controlled component를 위한 state
   const [email, setEmail] = useState("");

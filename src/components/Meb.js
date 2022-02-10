@@ -1,6 +1,5 @@
 import classNames from "classnames";
-import React, { useRef } from "react";
-import { useState } from "react/cjs/react.development";
+import React, { useRef, useState } from "react";
 import { dbService, storageService } from "../fbase";
 import DeleteIcon from "../icons/DeleteIcon";
 import EditIcon from "../icons/EditIcon";

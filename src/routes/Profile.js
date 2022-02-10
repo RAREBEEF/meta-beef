@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
 import { authService, dbService, storageService } from "../fbase";
 import { v4 as uuidv4 } from "uuid";
 import Meb from "../components/Meb";
