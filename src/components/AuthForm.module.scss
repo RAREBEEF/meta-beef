@@ -32,8 +32,11 @@
     }
   }
   .error {
+    color: rgb(88, 88, 88);
+    font-size: 14px;
     margin: {
       top: 20px;
+      bottom: 10px;
     }
   }
   .btn {
@@ -58,7 +61,5 @@
     &:hover {
       background-color: whitesmoke;
     }
-  }
-  .create {
   }
 }
