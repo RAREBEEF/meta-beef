@@ -104,6 +104,9 @@
   }
 
   .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: -35px;
     position: absolute;
     width: 30px;
@@ -111,6 +114,7 @@
     background-color: white;
     border-radius: 50%;
     border: 2px solid #221718;
+    color: #221718;
     cursor: pointer;
     &:hover {
       color: rgb(255 53 87);
