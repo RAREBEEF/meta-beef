@@ -72,7 +72,7 @@ export default function AuthForm() {
         />
         <div className={styles.error}>{error}</div>
 
-        <div>
+        <div className={styles["btn-group"]}>
           <input
             className={classNames(styles.submit, styles.btn)}
             type="submit"

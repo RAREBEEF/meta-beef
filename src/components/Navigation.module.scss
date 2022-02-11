@@ -1,6 +1,8 @@
 .nav {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  min-width: 320px;
   padding: {
     top: 5px;
     bottom: 150px;
@@ -16,7 +18,8 @@
 
     &.nav__item--home {
       margin: {
-        left: 3vw;
+        left: auto;
+        right: auto;
       }
       .logo-text {
         line-height: 50px;
@@ -34,7 +37,8 @@
 
     &.nav__item--profile {
       margin: {
-        right: 3vw;
+        left: auto;
+        right: auto;
       }
       .profile-text {
         line-height: 50px;

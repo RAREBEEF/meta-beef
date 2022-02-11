@@ -1,3 +1,25 @@
+@media screen and (max-width: 500px) {
+  .meb-box {
+    flex-direction: column;
+    padding: {
+      left: 20px;
+      right: 20px;
+    }
+    .meb-box--user {
+      margin: {
+        bottom: 10px;
+      }
+    }
+    .meb-box__text {
+      margin: {
+        bottom: 10px;
+      }
+    }
+    .meb-box__img {
+      align-self: center;
+    }
+  }
+}
 .container {
   position: relative;
   display: flex;
@@ -5,6 +27,7 @@
   align-items: center;
   width: 80vw;
   max-width: 625px;
+  min-width: 200px;
   border-radius: 50px;
   background-color: white;
   box-shadow: 3px 3px 5px gray;
@@ -57,6 +80,7 @@
       justify-content: center;
       height: 80px;
       width: 80px;
+      min-width: 80px;
       overflow: hidden;
       border: 1px solid rgb(204, 204, 204);
       border-radius: 50%;
@@ -96,8 +120,9 @@
   .edit--text {
     outline: none;
     border-radius: 10px;
-    width: 80vw;
-    max-width: 400px;
+    width: 60vw;
+    max-width: 525px;
+    min-width: 100px;
     height: 50px;
     border: 1px solid #221718;
     font-size: 16px;
@@ -105,53 +130,62 @@
     padding: {
       top: 3px;
       left: 20px;
-      right: 110px;
+      right: 0px;
+    }
+    margin: {
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
     }
     &:focus {
       border: 1px solid white;
       box-shadow: rgb(255 53 87) 0px 0px 21px;
     }
   }
-  .edit--submit {
-    cursor: pointer;
-    background-color: rgb(122, 196, 137);
-    color: whitesmoke;
-    border: none;
-    border-radius: 5px;
-    height: 30px;
-    font-weight: 700;
-    font-size: 16px;
-    padding: {
-      left: 10px;
-      right: 10px;
-      top: 6px;
-      bottom: 5px;
+  .edit-btn-wrapper {
+    display: flex;
+    justify-content: center;
+    .edit--submit {
+      cursor: pointer;
+      background-color: rgb(122, 196, 137);
+      color: whitesmoke;
+      border: none;
+      border-radius: 5px;
+      height: 30px;
+      font-weight: 700;
+      font-size: 16px;
+      padding: {
+        left: 10px;
+        right: 10px;
+        top: 6px;
+        bottom: 5px;
+      }
+      margin: {
+        right: 10px;
+      }
+      &:hover {
+        background-color: rgb(139, 224, 156);
+      }
     }
-    margin: {
-      left: 10px;
-      right: 10px;
-    }
-    &:hover {
-      background-color: rgb(139, 224, 156);
-    }
-  }
-  .edit--cancel {
-    cursor: pointer;
-    background-color: rgb(206, 93, 93);
-    color: whitesmoke;
-    border: none;
-    border-radius: 5px;
-    height: 30px;
-    font-weight: 700;
-    font-size: 16px;
-    padding: {
-      left: 10px;
-      right: 10px;
-      top: 6px;
-      bottom: 5px;
-    }
-    &:hover {
-      background-color: rgb(233, 133, 133);
+    .edit--cancel {
+      cursor: pointer;
+      background-color: rgb(206, 93, 93);
+      color: whitesmoke;
+      border: none;
+      border-radius: 5px;
+      height: 30px;
+      font-weight: 700;
+      font-size: 16px;
+      padding: {
+        left: 10px;
+        right: 10px;
+        top: 6px;
+        bottom: 5px;
+      }
+      &:hover {
+        background-color: rgb(233, 133, 133);
+      }
     }
   }
 }

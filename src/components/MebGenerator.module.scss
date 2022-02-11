@@ -7,6 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 320px;
     padding: {
       top: 40px;
       bottom: 40px;
@@ -15,8 +16,9 @@
     .input--text {
       outline: none;
       border-radius: 30px;
-      width: 80vw;
+      width: 70vw;
       max-width: 625px;
+      min-width: 230px;
       height: 50px;
       border: 1px solid white;
       font-size: 16px;

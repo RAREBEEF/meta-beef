@@ -68,18 +68,20 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
               required
               maxLength={120}
             />
-            <input
-              id="edit-submit"
-              type="submit"
-              value="완료"
-              className={classNames(styles["edit--submit"])}
-            />
-            <button
-              className={classNames(styles["edit--cancel"])}
-              onClick={toggelEditing}
-            >
-              취소
-            </button>
+            <div className={styles["edit-btn-wrapper"]}>
+              <input
+                id="edit-submit"
+                type="submit"
+                value="완료"
+                className={classNames(styles["edit--submit"])}
+              />
+              <button
+                className={classNames(styles["edit--cancel"])}
+                onClick={toggelEditing}
+              >
+                취소
+              </button>
+            </div>
           </form>
         </>
       ) : (

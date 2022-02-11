@@ -3,6 +3,7 @@ import styles from "./App.module.scss";
 import RouterComponent from "./Router";
 import { authService } from "../fbase";
 import logoImg from "../images/logo512.png";
+import LoadingIcon from "../icons/LoadingIcon";
 
 function App() {
   // 화면을 출력할지 여부
@@ -59,7 +60,9 @@ function App() {
           refreshUser={refreshUser}
         />
       ) : (
-        "Initializing..."
+        <div className={styles.loading}>
+          <LoadingIcon />
+        </div>
       )}
       <footer>
         &copy; {new Date().getFullYear()}. RAREBEEF All Rights Reserved.
