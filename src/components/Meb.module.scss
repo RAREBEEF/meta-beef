@@ -76,6 +76,7 @@
     }
 
     .meb-box__text {
+      word-break: break-all;
       display: flex;
       align-items: center;
       flex-grow: 1;
