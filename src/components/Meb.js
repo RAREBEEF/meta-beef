@@ -16,7 +16,7 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
 
   // Meb 삭제
   const onDeleteClick = async () => {
-    const ok = window.confirm("Are you sure you wont to delete this meb?");
+    const ok = window.confirm("정말 삭제 하시겠습니까?");
     if (ok) {
       await dbService.doc(`mebs/${mebObj.id}`).delete();
 
@@ -49,15 +49,17 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
     setNewMeb(value);
   };
 
-  const onImgClick = () => {
-    setModalActive(true);
-  };
+  // const onImgClick = () => {
+  //   setModalActive(true);
+  // };
 
   return (
     <div className={styles.container}>
-      {modalActive && (
+      {modalActive !== false && (
         <ImgModal
-          photoURL={mebObj.attachmentUrl}
+          photoURL={
+            modalActive === "post" ? mebObj.attachmentUrl : mebObj.profileImg
+          }
           setModalActive={setModalActive}
         />
       )}
@@ -92,7 +94,12 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
       ) : (
         <div className={styles["meb-box"]}>
           <div className={styles["meb-box--user"]}>
-            <span className={styles["profile-img"]}>
+            <span
+              className={styles["profile-img"]}
+              onClick={() => {
+                setModalActive("profile");
+              }}
+            >
               <img src={mebObj.profileImg} alt="profile" />
             </span>
             <span className={styles["username"]}>{mebObj.displayName}</span>
@@ -103,7 +110,9 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
               <img
                 src={mebObj.attachmentUrl}
                 alt={mebObj.attachmentUrl}
-                onClick={onImgClick}
+                onClick={() => {
+                  setModalActive("post");
+                }}
               />
             </div>
           )}
