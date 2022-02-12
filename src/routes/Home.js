@@ -36,7 +36,6 @@ export default function Home({ userObj }) {
           src={logoImg}
           alt="Meta beef logo"
         />
-        {/* <span className={styles["logo-text"]}>Meta Beef</span> */}
       </div>
       <MebGenerator userObj={userObj} />
       <div>

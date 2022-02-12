@@ -6,7 +6,7 @@ import defaultProfileImg from "../images/defaultProfileImg.png";
 import LoadingIcon from "../icons/LoadingIcon";
 
 function App() {
-  // 화면을 출력할지 여부
+  // 유저 인증 정보 로드 전 화면 출력 제한
   const [init, setInit] = useState(false);
   // 로그인 여부
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,10 +21,10 @@ function App() {
       if (user) {
         setIsLoggedIn(true);
         setUserObj({
-          displayName: user.displayName ? user.displayName : "익명",
+          displayName: user.displayName ? user.displayName : "익명", // 신규 가입시 닉네임 --> "익명"
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
-          photoURL: user.photoURL ? user.photoURL : defaultProfileImg,
+          photoURL: user.photoURL ? user.photoURL : defaultProfileImg, // 신규 가입시 기본 프사
         });
       } else {
         setIsLoggedIn(false);
@@ -34,7 +34,7 @@ function App() {
     });
   }, []);
 
-  // 프로필 정보 변경 시 새로고침을 담당하는 함수
+  // 프로필 정보 변경 시 새로고침
   const refreshUser = () => {
     const user = authService.currentUser;
     setUserObj({

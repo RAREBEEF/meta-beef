@@ -13,16 +13,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .logo-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
     .logo-text {
       line-height: 80px;
       font-size: 40px;
       font-weight: 900;
       padding-top: 5px;
-    }
-    .logo-img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
     }
   }
   .social {

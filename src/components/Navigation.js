@@ -2,7 +2,6 @@ import classNames from "classnames";
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navigation.module.scss";
-// import logoImg from "../images/logo512.png";
 
 export default function Navigation({ userObj }) {
   return (
@@ -11,7 +10,6 @@ export default function Navigation({ userObj }) {
         className={classNames(styles["nav__item"], styles["nav__item--home"])}
       >
         <Link to="/" className={styles.Link}>
-          {/* <img className={styles.logo} src={logoImg} alt="Meta beef logo" /> */}
           <span className={styles["logo-text"]}>Meta Beef</span>
         </Link>
       </li>

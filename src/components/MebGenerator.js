@@ -9,24 +9,27 @@ import styles from "./MebGenerator.module.scss";
 import classNames from "classnames";
 
 export default function MebGenerator({ userObj }) {
-  // controlled component
   const [meb, setMeb] = useState("");
-  // 첨부파일
   const [attachment, setAttachment] = useState("");
-  // 파일 input 레퍼런스
   const attachmentInputRef = useRef();
-
+  // 업로드 중 submit 비활성화(중복 업로드 방지)
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
-  // 작성한 meb을 db에 업로드한다.
+  // 작성한 내용을 db에 업로드한다.
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    // 작성 내용 없을 경우 return
     if (!attachment && !meb) {
       return;
     }
+
+    // submit 비활성화
     setSubmitDisabled(true);
+
     let attachmentUrl = "";
 
+    // 이미지 있을 경우
     if (attachment !== "") {
       const attachmentRef = storageService
         .ref()
@@ -37,6 +40,7 @@ export default function MebGenerator({ userObj }) {
       attachmentUrl = await response.ref.getDownloadURL();
     }
 
+    // 업로드 할 데이터
     const mebObj = {
       text: meb,
       createdAt: Date.now(),
@@ -46,6 +50,7 @@ export default function MebGenerator({ userObj }) {
       attachmentUrl,
     };
 
+    // 업로드
     await dbService
       .collection("mebs")
       .add(mebObj)
@@ -53,7 +58,7 @@ export default function MebGenerator({ userObj }) {
         setMeb("");
         setAttachment("");
         attachmentInputRef.current.value = null;
-        setSubmitDisabled(false);
+        setSubmitDisabled(false); // submit 활성화
       });
   };
 
@@ -65,9 +70,7 @@ export default function MebGenerator({ userObj }) {
     setMeb(value);
   };
 
-  // 파일 업로드
-  // input으로 부터 첨부파일을 꺼낸 뒤 FileReader를 통해 Data URL을 읽어온다.
-  // FileReader는 이벤트 리스너(onloadend)를 통해 로드가 완료되면 Data URL을 setState 한다.
+  // 첨부 이미지 읽기
   const onFileChange = (e) => {
     const {
       target: { files },
@@ -87,6 +90,7 @@ export default function MebGenerator({ userObj }) {
     reader.readAsDataURL(file);
   };
 
+  // 첨부파일 삭제
   const onClearAttachmentClick = () => {
     setAttachment("");
     attachmentInputRef.current.value = null;
@@ -94,7 +98,7 @@ export default function MebGenerator({ userObj }) {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={onSubmit} className={styles["inputs-wrapper"]}>
+      <form onSubmit={onSubmit} className={styles["input-wrapper"]}>
         <input
           value={meb}
           onChange={onChange}

@@ -11,8 +11,7 @@ export default function Profile({ userObj, refreshUser }) {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const [attachment, setAttachment] = useState("");
   const [myMebs, setMyMebs] = useState([]);
-  // 프로필 페이지에서 글 삭제 및 프로필 수정 내용 바로 업데이트 안되는거 해결
-  const [needUpdate, setNeedUpdate] = useState(0);
+  const [doUpdate, setDoUpdate] = useState(0);
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
@@ -32,26 +31,26 @@ export default function Profile({ userObj, refreshUser }) {
 
   useEffect(() => {
     getMyMeb();
-  }, [needUpdate]);
+  }, [doUpdate]);
 
   const onLogOutClick = () => {
     authService.signOut();
     navigate("/");
   };
-  // 프로필 사진 첨부가 있을 경우 프로필 사진 업데이트
-  // 닉네임이 변경되었을 경우 닉네입 업데이트
-  // 프로필 사진의 경우 URL이 너무 길다는 에러 때문에 우선 storage에 업로드하고 해당 파일의 url을 user photo로 불러왔다.
-  // 프사 업데이트 시 내 모든 게시글의 프사 url을 업데이트한다.
-  // TODO: 아이폰에서 프로필 사진이 변경되지 않는 문제가 발생한다.
-  // 닉네임은 정상적으로 변경된다.
+  // 프사 & 닉네임 업데이트
+  // 프사의 경우 URL이 너무 길다는 에러 때문에 우선 storage에 업로드하고 해당 파일의 url을 user photo로 불러왔다.
+  // 프사 업데이트 시 forEach로 내 모든 게시글의 프사 url을 업데이트한다.
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    // 변경사항이 있을 경우
     if (userObj.displayName !== newDisplayName || attachment !== "") {
       let newProfileImgUrl = "";
 
+      // 업데이트 중 Submit 버튼 비활성화
       setUploading(true);
 
+      // 닉네임에 변경사항이 있을 경우
       if (newDisplayName !== "") {
         await myMebs.forEach((meb) => {
           if (meb.displayName !== newDisplayName) {
@@ -62,6 +61,7 @@ export default function Profile({ userObj, refreshUser }) {
         });
       }
 
+      // 프사에 변경사항이 있을 경우
       if (attachment !== "") {
         if (userObj.photoURL !== defaultProfileImg) {
           await storageService
@@ -80,6 +80,7 @@ export default function Profile({ userObj, refreshUser }) {
 
         newProfileImgUrl = await response.ref.getDownloadURL();
 
+        // 내 모든 글의 프사 변경
         await myMebs.forEach((meb) => {
           if (meb.profileImg !== newProfileImgUrl) {
             dbService
@@ -89,6 +90,7 @@ export default function Profile({ userObj, refreshUser }) {
         });
       }
 
+      // 변경사항 반영
       await userObj
         .updateProfile({
           displayName:
@@ -96,10 +98,11 @@ export default function Profile({ userObj, refreshUser }) {
           photoURL:
             newProfileImgUrl !== "" ? newProfileImgUrl : userObj.photoURL,
         })
-        .then(setUploading(false));
+        .then(setUploading(false)); // Submit 버튼 활성화
 
+      // 새로고침
       refreshUser();
-      setNeedUpdate((prev) => prev + 1);
+      setDoUpdate((prev) => prev + 1);
     }
   };
 
@@ -187,7 +190,7 @@ export default function Profile({ userObj, refreshUser }) {
           key={meb.id}
           mebObj={meb}
           isOwner={meb.creatorId === userObj.uid}
-          setNeedUpdate={setNeedUpdate}
+          setDoUpdate={setDoUpdate}
         />
       ))}
     </div>

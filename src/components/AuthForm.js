@@ -3,15 +3,12 @@ import React, { useState } from "react";
 import { authService } from "../fbase";
 import styles from "./AuthForm.module.scss";
 export default function AuthForm() {
-  // controlled component를 위한 state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // 새 계정과 기존 계정을 구분하기 위한 state
+  // 기존 계정 로그인 or 회원가입
   const [newAccount, setNewAccount] = useState(false);
-  // 에러 메세지
   const [error, setError] = useState("");
 
-  // controlled component 로직
   const onChange = (e) => {
     const {
       target: { name, value },
@@ -23,12 +20,12 @@ export default function AuthForm() {
     }
   };
 
-  // 로그인 / 회원가입 기능 토글
+  // 로그인 / 회원가입 토글
   const toggleAccount = () => {
     setNewAccount((prev) => !prev);
   };
 
-  // 새 계정일 경우 submit 시 createUserWithEmailAndPassword 가 input을 받아서 계정 생성 후 바로 로그인
+  // 새 계정일 경우 submit 시 createUserWithEmailAndPassword 가 input을 받아서 계정 생성 후 로그인
   // 기존 계정일 경우 submit 시 signInWithEmailAndPassword 가 input을 받아서 로그인
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -47,6 +44,7 @@ export default function AuthForm() {
       setError(error.message);
     }
   };
+
   return (
     <div className={styles.container}>
       <form onSubmit={onSubmit} className={styles.form}>

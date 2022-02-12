@@ -6,15 +6,14 @@ import EditIcon from "../icons/EditIcon";
 import ImgModal from "./ImgModal";
 import styles from "./Meb.module.scss";
 
-export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
+export default function Meb({ mebObj, isOwner, setDoUpdate }) {
   // Meb 수정 모드 토글
   const [editing, setEditing] = useState(false);
-  // Meb 수정한 내용
   const [newMeb, setNewMeb] = useState(mebObj.text);
-
+  // 이미지 모달
   const [modalActive, setModalActive] = useState(false);
 
-  // Meb 삭제
+  // 글 삭제
   const onDeleteClick = async () => {
     const ok = window.confirm("정말 삭제 하시겠습니까?");
     if (ok) {
@@ -24,18 +23,18 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
         await storageService.refFromURL(mebObj.attachmentUrl).delete();
       }
     }
-    if (typeof setNeedUpdate === "function") {
-      setNeedUpdate((prev) => prev + 1);
+    if (typeof setDoUpdate === "function") {
+      setDoUpdate((prev) => prev + 1);
     }
   };
 
-  // Meb 수정 모드 토글
+  // 글 수정 모드 토글
   const toggelEditing = () => {
     setEditing((prev) => !prev);
     setNewMeb(mebObj.text);
   };
 
-  // Meb 수정 내용 업로드
+  // 글 수정 내용 업로드
   const onSubmit = async (e) => {
     e.preventDefault();
     await dbService.doc(`mebs/${mebObj.id}`).update("text", newMeb);
@@ -49,10 +48,6 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
     setNewMeb(value);
   };
 
-  // const onImgClick = () => {
-  //   setModalActive(true);
-  // };
-
   return (
     <div className={styles.container}>
       {modalActive !== false && (
@@ -65,9 +60,9 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
       )}
       {editing ? (
         <>
-          <form onSubmit={onSubmit} className={styles["wrapper__input--edit"]}>
+          <form onSubmit={onSubmit}>
             <input
-              className={styles["edit--text"]}
+              className={styles["edit__text-input"]}
               onChange={onChange}
               type="text"
               placeholder="내용을 입력하세요."
@@ -75,15 +70,15 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
               required
               maxLength={120}
             />
-            <div className={styles["edit-btn-wrapper"]}>
+            <div className={styles["edit__btn-wrapper"]}>
               <input
                 id="edit-submit"
                 type="submit"
                 value="완료"
-                className={classNames(styles["edit--submit"])}
+                className={classNames(styles["edit__submit"])}
               />
               <button
-                className={classNames(styles["edit--cancel"])}
+                className={classNames(styles["edit__cancel"])}
                 onClick={toggelEditing}
               >
                 취소
@@ -93,7 +88,7 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
         </>
       ) : (
         <div className={styles["meb-box"]}>
-          <div className={styles["meb-box--user"]}>
+          <div className={styles["meb-box__user"]}>
             <span
               className={styles["profile-img"]}
               onClick={() => {

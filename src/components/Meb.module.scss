@@ -20,6 +20,7 @@
     }
   }
 }
+
 .container {
   position: relative;
   display: flex;
@@ -43,10 +44,83 @@
     right: auto;
   }
 
+  .edit__text-input {
+    outline: none;
+    border-radius: 10px;
+    width: 60vw;
+    max-width: 525px;
+    min-width: 100px;
+    height: 50px;
+    border: 1px solid #221718;
+    font-size: 16px;
+    line-height: 16px;
+    padding: {
+      top: 3px;
+      left: 20px;
+      right: 0px;
+    }
+    margin: {
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+    }
+    &:focus {
+      border: 1px solid white;
+      box-shadow: rgb(255 53 87) 0px 0px 21px;
+    }
+  }
+
+  .edit__btn-wrapper {
+    display: flex;
+    justify-content: center;
+    .edit__submit {
+      cursor: pointer;
+      background-color: rgb(122, 196, 137);
+      color: whitesmoke;
+      border: none;
+      border-radius: 5px;
+      height: 30px;
+      font-weight: 700;
+      font-size: 16px;
+      padding: {
+        left: 10px;
+        right: 10px;
+        top: 6px;
+        bottom: 5px;
+      }
+      margin: {
+        right: 10px;
+      }
+      &:hover {
+        background-color: rgb(139, 224, 156);
+      }
+    }
+    .edit__cancel {
+      cursor: pointer;
+      background-color: rgb(206, 93, 93);
+      color: whitesmoke;
+      border: none;
+      border-radius: 5px;
+      height: 30px;
+      font-weight: 700;
+      font-size: 16px;
+      padding: {
+        left: 10px;
+        right: 10px;
+        top: 6px;
+        bottom: 5px;
+      }
+      &:hover {
+        background-color: rgb(233, 133, 133);
+      }
+    }
+  }
+
   .meb-box {
     display: flex;
     width: 100%;
-    .meb-box--user {
+    .meb-box__user {
       display: flex;
       align-items: center;
       margin: {
@@ -85,6 +159,7 @@
         right: 15px;
       }
     }
+
     .meb-box__img {
       display: flex;
       justify-content: center;
@@ -105,14 +180,6 @@
     }
   }
 
-  .btn--edit {
-    right: 80px;
-  }
-
-  .btn--delete {
-    right: 40px;
-  }
-
   .btn {
     display: flex;
     justify-content: center;
@@ -130,76 +197,13 @@
       color: rgb(255 53 87);
       border-color: rgb(255 53 87);
     }
-  }
-  .edit--text {
-    outline: none;
-    border-radius: 10px;
-    width: 60vw;
-    max-width: 525px;
-    min-width: 100px;
-    height: 50px;
-    border: 1px solid #221718;
-    font-size: 16px;
-    line-height: 16px;
-    padding: {
-      top: 3px;
-      left: 20px;
-      right: 0px;
+
+    &.btn--edit {
+      right: 80px;
     }
-    margin: {
-      top: 20px;
-      left: 20px;
-      right: 20px;
-      bottom: 20px;
-    }
-    &:focus {
-      border: 1px solid white;
-      box-shadow: rgb(255 53 87) 0px 0px 21px;
-    }
-  }
-  .edit-btn-wrapper {
-    display: flex;
-    justify-content: center;
-    .edit--submit {
-      cursor: pointer;
-      background-color: rgb(122, 196, 137);
-      color: whitesmoke;
-      border: none;
-      border-radius: 5px;
-      height: 30px;
-      font-weight: 700;
-      font-size: 16px;
-      padding: {
-        left: 10px;
-        right: 10px;
-        top: 6px;
-        bottom: 5px;
-      }
-      margin: {
-        right: 10px;
-      }
-      &:hover {
-        background-color: rgb(139, 224, 156);
-      }
-    }
-    .edit--cancel {
-      cursor: pointer;
-      background-color: rgb(206, 93, 93);
-      color: whitesmoke;
-      border: none;
-      border-radius: 5px;
-      height: 30px;
-      font-weight: 700;
-      font-size: 16px;
-      padding: {
-        left: 10px;
-        right: 10px;
-        top: 6px;
-        bottom: 5px;
-      }
-      &:hover {
-        background-color: rgb(233, 133, 133);
-      }
+
+    &.btn--delete {
+      right: 40px;
     }
   }
 }
