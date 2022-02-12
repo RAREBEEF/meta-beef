@@ -4,13 +4,16 @@ import { authService, dbService, storageService } from "../fbase";
 import { v4 as uuidv4 } from "uuid";
 import Meb from "../components/Meb";
 import styles from "./Profile.module.scss";
+import SubmitLoadingIon from "../icons/SubmitLoadingIcon.js";
+import defaultProfileImg from "../images/defaultProfileImg.png";
 
 export default function Profile({ userObj, refreshUser }) {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const [attachment, setAttachment] = useState("");
   const [myMebs, setMyMebs] = useState([]);
-  // 프로필 페이지에서 글 삭제 및 프로필 수정 내용 바로 업데이트 안되는거 해결 꼼수
+  // 프로필 페이지에서 글 삭제 및 프로필 수정 내용 바로 업데이트 안되는거 해결
   const [needUpdate, setNeedUpdate] = useState(0);
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
   // 내 Meb들만 불러오기
@@ -35,24 +38,39 @@ export default function Profile({ userObj, refreshUser }) {
     authService.signOut();
     navigate("/");
   };
-
   // 프로필 사진 첨부가 있을 경우 프로필 사진 업데이트
   // 닉네임이 변경되었을 경우 닉네입 업데이트
   // 프로필 사진의 경우 URL이 너무 길다는 에러 때문에 우선 storage에 업로드하고 해당 파일의 url을 user photo로 불러왔다.
   // 프사 업데이트 시 내 모든 게시글의 프사 url을 업데이트한다.
+  // TODO: 아이폰에서 프로필 사진이 변경되지 않는 문제가 발생한다.
+  // 닉네임은 정상적으로 변경된다.
   const onSubmit = async (e) => {
     e.preventDefault();
 
     if (userObj.displayName !== newDisplayName || attachment !== "") {
       let newProfileImgUrl = "";
 
+      setUploading(true);
+
+      if (newDisplayName !== "") {
+        await myMebs.forEach((meb) => {
+          if (meb.displayName !== newDisplayName) {
+            dbService
+              .doc(`mebs/${meb.id}`)
+              .update("displayName", newDisplayName);
+          }
+        });
+      }
+
       if (attachment !== "") {
-        await storageService
-          .refFromURL(userObj.photoURL)
-          .delete()
-          .catch((error) => {
-            console.log(error.message);
-          });
+        if (userObj.photoURL !== defaultProfileImg) {
+          await storageService
+            .refFromURL(userObj.photoURL)
+            .delete()
+            .catch((error) => {
+              console.log(error.message);
+            });
+        }
 
         const attachmentRef = storageService
           .ref()
@@ -71,28 +89,20 @@ export default function Profile({ userObj, refreshUser }) {
         });
       }
 
-      if (newDisplayName !== "") {
-        await myMebs.forEach((meb) => {
-          if (meb.displayName !== newDisplayName) {
-            dbService
-              .doc(`mebs/${meb.id}`)
-              .update("displayName", newDisplayName);
-          }
-        });
-      }
-
-      await userObj.updateProfile({
-        displayName:
-          newDisplayName !== "" ? newDisplayName : userObj.displayName,
-        photoURL: newProfileImgUrl !== "" ? newProfileImgUrl : userObj.photoURL,
-      });
+      await userObj
+        .updateProfile({
+          displayName:
+            newDisplayName !== "" ? newDisplayName : userObj.displayName,
+          photoURL:
+            newProfileImgUrl !== "" ? newProfileImgUrl : userObj.photoURL,
+        })
+        .then(setUploading(false));
 
       refreshUser();
       setNeedUpdate((prev) => prev + 1);
     }
   };
 
-  console.log(myMebs);
   const onChange = (e) => {
     const {
       target: { value },
@@ -122,11 +132,9 @@ export default function Profile({ userObj, refreshUser }) {
 
   return (
     <div className={styles.container}>
-      <img
-        src={attachment ? attachment : userObj.photoURL}
-        alt="Profile"
-        className={styles["profile-img"]}
-      />
+      <div className={styles["profile-img"]}>
+        <img src={attachment ? attachment : userObj.photoURL} alt="Profile" />
+      </div>
       <form onSubmit={onSubmit} className={styles["form"]}>
         <div>
           <label htmlFor="profileImg" className={styles["input--img"]}>
@@ -151,16 +159,25 @@ export default function Profile({ userObj, refreshUser }) {
             type="text"
             placeholder="Display name"
             className={styles["input--name"]}
+            maxLength={10}
+            minLength={2}
           />
         </div>
         <div>
           <input
+            id="submit"
             type="submit"
-            value="Update Profile"
+            value="프로필 업데이트"
             className={styles.submit}
+            style={{ display: uploading ? "none" : "inline" }}
           />
+          {uploading && (
+            <label htmlFor="submit" className={styles.submit}>
+              <SubmitLoadingIon />
+            </label>
+          )}
           <button className={styles.logout} onClick={onLogOutClick}>
-            Log Out
+            로그아웃
           </button>
         </div>
       </form>

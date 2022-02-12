@@ -26,13 +26,9 @@ export default function Navigation({ userObj }) {
             <span className={styles["profile-text"]}>
               {userObj.displayName}의 프로필
             </span>
-            <img
-              className={styles["profile-img"]}
-              src={userObj.photoURL}
-              alt="Profile"
-              width="30px"
-              height="30px"
-            />
+            <span className={styles["profile-img"]}>
+              <img src={userObj.photoURL} alt="Profile" />
+            </span>
           </Link>
         )}
       </li>

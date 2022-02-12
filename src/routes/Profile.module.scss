@@ -5,12 +5,21 @@
   align-items: center;
   min-width: 320px;
   .profile-img {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 200px;
     height: 200px;
+    // min-width: 200px;
     border-radius: 50%;
     box-shadow: 3px 3px 5px gray;
+    overflow: hidden;
     margin: {
       bottom: 20px;
+    }
+    img {
+      height: 200px;
     }
   }
   .form {

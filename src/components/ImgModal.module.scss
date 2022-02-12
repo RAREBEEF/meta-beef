@@ -1,0 +1,31 @@
+.container {
+  cursor: pointer;
+  z-index: 100;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // padding: {
+  //   left: 10vw;
+  //   right: 10vw;
+  //   top: 10vh;
+  //   bottom: 10vh;
+  // }
+  .modal {
+    background-color: whitesmoke;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: {
+      left: 2vw;
+      right: 2vw;
+      top: 2vw;
+      bottom: 2vw;
+    }
+    img {
+      max-width: 70vw;
+      max-height: 70vh;
+    }
+  }
+}

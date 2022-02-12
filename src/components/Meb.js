@@ -1,8 +1,9 @@
 import classNames from "classnames";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { dbService, storageService } from "../fbase";
 import DeleteIcon from "../icons/DeleteIcon";
 import EditIcon from "../icons/EditIcon";
+import ImgModal from "./ImgModal";
 import styles from "./Meb.module.scss";
 
 export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
@@ -11,7 +12,7 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
   // Meb 수정한 내용
   const [newMeb, setNewMeb] = useState(mebObj.text);
 
-  const imgRef = useRef();
+  const [modalActive, setModalActive] = useState(false);
 
   // Meb 삭제
   const onDeleteClick = async () => {
@@ -49,13 +50,17 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
   };
 
   const onImgClick = () => {
-    if (imgRef.current) {
-      imgRef.current.requestFullscreen();
-    }
+    setModalActive(true);
   };
 
   return (
     <div className={styles.container}>
+      {modalActive && (
+        <ImgModal
+          photoURL={mebObj.attachmentUrl}
+          setModalActive={setModalActive}
+        />
+      )}
       {editing ? (
         <>
           <form onSubmit={onSubmit} className={styles["wrapper__input--edit"]}>
@@ -87,11 +92,9 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
       ) : (
         <div className={styles["meb-box"]}>
           <div className={styles["meb-box--user"]}>
-            <img
-              src={mebObj.profileImg}
-              alt="profile"
-              className={styles["profile-img"]}
-            />
+            <span className={styles["profile-img"]}>
+              <img src={mebObj.profileImg} alt="profile" />
+            </span>
             <span className={styles["username"]}>{mebObj.displayName}</span>
           </div>
           <h4 className={styles["meb-box__text"]}>{mebObj.text}</h4>
@@ -100,7 +103,6 @@ export default function Meb({ mebObj, isOwner, setNeedUpdate }) {
               <img
                 src={mebObj.attachmentUrl}
                 alt={mebObj.attachmentUrl}
-                ref={imgRef}
                 onClick={onImgClick}
               />
             </div>

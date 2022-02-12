@@ -8,7 +8,6 @@ import logoImg from "../images/logo512.png";
 export default function Home({ userObj }) {
   // db로부터 mebs를 받아올 state
   const [mebs, setMebs] = useState([]);
-
   // db에 어떠한 변동 혹은 작업이 발생하면 mebs를 업데이트한다.
   // 실시간으로 새로운 meb이 업로드되는 것을 확인할 수 있다.
   // 스냅샷 로직을 함수에 할당하고 클린업에서 함수를 호출하여 정리할 수 있다.
@@ -45,7 +44,10 @@ export default function Home({ userObj }) {
           <Meb
             key={meb.id}
             mebObj={meb}
-            isOwner={meb.creatorId === userObj.uid}
+            isOwner={
+              meb.creatorId === userObj.uid ||
+              userObj.uid === "CPiQGqb4ambsw2RplHzeGcgODuX2"
+            }
           />
         ))}
       </div>

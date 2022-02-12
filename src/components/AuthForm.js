@@ -76,13 +76,13 @@ export default function AuthForm() {
           <input
             className={classNames(styles.submit, styles.btn)}
             type="submit"
-            value={newAccount ? "Create Account" : "Log In"}
+            value={newAccount ? "가입하기" : "로그인"}
           />
           <span
             onClick={toggleAccount}
             className={classNames(styles.create, styles.btn)}
           >
-            {newAccount ? "Sign in" : "Create Account"}
+            {newAccount ? "기존 계정으로 로그인" : "새 계정 만들기"}
           </span>
         </div>
       </form>

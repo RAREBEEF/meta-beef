@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import RouterComponent from "./Router";
 import { authService } from "../fbase";
-import logoImg from "../images/logo512.png";
+import defaultProfileImg from "../images/defaultProfileImg.png";
 import LoadingIcon from "../icons/LoadingIcon";
 
 function App() {
@@ -19,18 +19,12 @@ function App() {
     // 업데이트 이후 인증 여부에 따라 로그인 / 비로그인 여부를 구분한다. (isLoggedIn)
     authService.onAuthStateChanged((user) => {
       if (user) {
-        // if (user.displayName === null) {
-        //   user.updateProfile({ displayName: "Meb" });
-        // }
-        // if (user.photoURL === null) {
-        //   user.updateProfile({ photoURL: logoImg });
-        // }
         setIsLoggedIn(true);
         setUserObj({
           displayName: user.displayName ? user.displayName : "익명",
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
-          photoURL: user.photoURL ? user.photoURL : logoImg,
+          photoURL: user.photoURL ? user.photoURL : defaultProfileImg,
         });
       } else {
         setIsLoggedIn(false);
