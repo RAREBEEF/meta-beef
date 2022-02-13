@@ -29,17 +29,12 @@ export default function AuthForm() {
   // 기존 계정일 경우 submit 시 signInWithEmailAndPassword 가 input을 받아서 로그인
   const onSubmit = async (e) => {
     e.preventDefault();
-    let data;
     try {
       if (newAccount) {
-        data = await authService.createUserWithEmailAndPassword(
-          email,
-          password
-        );
+        await authService.createUserWithEmailAndPassword(email, password);
       } else {
-        data = await authService.signInWithEmailAndPassword(email, password);
+        await authService.signInWithEmailAndPassword(email, password);
       }
-      console.log(data);
     } catch (error) {
       setError(error.message);
     }
