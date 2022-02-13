@@ -107,7 +107,6 @@ export default function MebGenerator({ userObj }) {
           maxLength={120}
           required
           className={styles["input--text"]}
-          autoFocus
         />
         <input
           id="attachmentInput"
