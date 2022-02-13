@@ -50,6 +50,7 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
 
   return (
     <div className={styles.container}>
+      {/* 이미지 모달 */}
       {modalActive !== false && (
         <ImgModal
           photoURL={
@@ -58,6 +59,7 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
           setModalActive={setModalActive}
         />
       )}
+      {/* 수정 탭 */}
       {editing ? (
         <>
           <form onSubmit={onSubmit}>
@@ -87,19 +89,22 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
           </form>
         </>
       ) : (
+        // 기본 게시글 창
         <div className={styles["meb-box"]}>
-          <div className={styles["meb-box__user"]}>
-            <span
-              className={styles["profile-img"]}
-              onClick={() => {
-                setModalActive("profile");
-              }}
-            >
-              <img src={mebObj.profileImg} alt="profile" />
-            </span>
-            <span className={styles["username"]}>{mebObj.displayName}</span>
+          <div className={styles["responsive-wrapper"]}>
+            <div className={styles["meb-box__user"]}>
+              <span
+                className={styles["profile-img"]}
+                onClick={() => {
+                  setModalActive("profile");
+                }}
+              >
+                <img src={mebObj.profileImg} alt="profile" />
+              </span>
+              <span className={styles["username"]}>{mebObj.displayName}</span>
+            </div>
+            <h4 className={styles["meb-box__text"]}>{mebObj.text}</h4>
           </div>
-          <h4 className={styles["meb-box__text"]}>{mebObj.text}</h4>
           {mebObj.attachmentUrl && (
             <div className={styles["meb-box__img"]}>
               <img
@@ -111,6 +116,7 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
               />
             </div>
           )}
+          {/* 게시글 작성자 툴바 */}
           {isOwner && (
             <>
               <button
