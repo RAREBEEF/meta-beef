@@ -88,10 +88,6 @@
       right: 20px;
       bottom: 20px;
     }
-    &:focus {
-      border: 1px solid white;
-      box-shadow: rgb(255 53 87) 0px 0px 21px;
-    }
   }
 
   .edit__btn-wrapper {
@@ -215,7 +211,7 @@
     height: 30px;
     background-color: white;
     border-radius: 50%;
-    border: 2px solid #221718;
+    border: 1px solid #221718;
     color: #221718;
     cursor: pointer;
     &:hover {
@@ -225,6 +221,9 @@
 
     &.btn--edit {
       right: 80px;
+      padding: {
+        right: 3px;
+      }
     }
 
     &.btn--delete {
