@@ -101,7 +101,14 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
               >
                 <img src={mebObj.profileImg} alt="profile" />
               </span>
-              <span className={styles["username"]}>{mebObj.displayName}</span>
+              <span
+                className={styles["username"]}
+                onClick={() => {
+                  setModalActive("profile");
+                }}
+              >
+                {mebObj.displayName}
+              </span>
             </div>
             <h4 className={styles["meb-box__text"]}>{mebObj.text}</h4>
           </div>

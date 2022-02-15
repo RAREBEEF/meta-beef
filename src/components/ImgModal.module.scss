@@ -6,16 +6,16 @@
   justify-content: center;
   align-items: center;
   .modal {
-    background-color: rgb(95, 89, 89);
+    background-color: black;
     border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: {
-      left: 2vw;
-      right: 2vw;
-      top: 2vw;
-      bottom: 2vw;
+      left: 5px;
+      right: 5px;
+      top: 5px;
+      bottom: 5px;
     }
     img {
       max-width: 70vw;

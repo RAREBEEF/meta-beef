@@ -3,7 +3,7 @@ import Meb from "../components/Meb";
 import MebGenerator from "../components/MebGenerator";
 import { dbService } from "../fbase";
 import styles from "./Home.module.scss";
-import logoImg from "../images/logo512.png";
+import logoImg from "../images/logo512transparent.png";
 
 export default function Home({ userObj }) {
   // db로부터 mebs를 받아올 state

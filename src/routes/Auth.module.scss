@@ -41,6 +41,7 @@
       background-color: white;
       color: #221718;
       border: none;
+      border: 1.5px solid #221718;
       border-radius: 15px;
       min-height: 30px;
       font-weight: 700;
@@ -55,7 +56,7 @@
         top: 35px;
       }
       &:hover {
-        background-color: whitesmoke;
+        background-color: #e9e9e9;
       }
     }
     .google {
