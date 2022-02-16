@@ -43,7 +43,7 @@ export default function Profile({ userObj, refreshUser }) {
 
   const onDeleteClick = async () => {
     const ok = window.confirm(
-      "정말 탈퇴 하시겠습니까? 작성한 글은 삭제되지 않습니다."
+      "정말 탈퇴하시겠습니까?\n작성한 글은 삭제되지 않습니다."
     );
     if (ok) {
       await authService.currentUser.delete();
@@ -223,14 +223,21 @@ export default function Profile({ userObj, refreshUser }) {
         </div>
       </form>
       <h2 className={styles["list-title"]}>내가 쓴 글</h2>
-      {myMebs.map((meb) => (
-        <Meb
-          key={meb.id}
-          mebObj={meb}
-          isOwner={meb.creatorId === userObj.uid}
-          setDoUpdate={setDoUpdate}
-        />
-      ))}
+      {myMebs.length === 0 ? (
+        <div className={styles["no-mebs"]}>
+          <div>작성한 글이 없습니다.</div>
+          <div>첫 소식을 공유해 보세요.</div>
+        </div>
+      ) : (
+        myMebs.map((meb) => (
+          <Meb
+            key={meb.id}
+            mebObj={meb}
+            isOwner={meb.creatorId === userObj.uid}
+            setDoUpdate={setDoUpdate}
+          />
+        ))
+      )}
     </div>
   );
 }

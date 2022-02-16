@@ -15,7 +15,7 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
 
   // 글 삭제
   const onDeleteClick = async () => {
-    const ok = window.confirm("정말 삭제 하시겠습니까?");
+    const ok = window.confirm("정말 삭제하시겠습니까?");
     if (ok) {
       await dbService.doc(`mebs/${mebObj.id}`).delete();
 

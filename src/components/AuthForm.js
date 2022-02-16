@@ -97,7 +97,7 @@ export default function AuthForm() {
             {newAccount ? "기존 계정으로 로그인" : "새 계정 만들기"}
           </span>
           <span onClick={toggleFindPw} className={classNames(styles.btn)}>
-            {findPw ? "돌아가기" : "비밀번호 찾기"}
+            {findPw ? "돌아가기" : "비밀번호 재설정"}
           </span>
         </div>
       </form>
