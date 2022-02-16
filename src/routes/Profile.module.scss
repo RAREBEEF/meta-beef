@@ -11,8 +11,9 @@
     align-items: center;
     width: 200px;
     height: 200px;
+    border: 1.5px solid #221718;
     border-radius: 50%;
-    box-shadow: 3px 3px 5px gray;
+    box-shadow: 3px 3px 1px gray;
     overflow: hidden;
     margin: {
       bottom: 20px;
@@ -26,9 +27,11 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    .input--img {
+    .input--img,
+    .change-pw {
       cursor: pointer;
-      background-color: whitesmoke;
+      background-color: white;
+      border: 1.5px solid #221718;
       border-radius: 15px;
       height: 30px;
       font-weight: 500;
@@ -39,10 +42,15 @@
         bottom: 5px;
       }
       &:hover {
-        background-color: white;
+        background-color: #e9e9e9;
+      }
+      &.change-pw {
+        margin: {
+          top: 50px;
+        }
       }
     }
-    .input--name__label {
+    .edit__label {
       font-weight: 500;
       display: block;
       margin: {
@@ -50,13 +58,13 @@
         bottom: 5px;
       }
     }
-    .input--name {
+    .edit__input {
       outline: none;
       border-radius: 30px;
       width: 150px;
       max-width: 625px;
       height: 25px;
-      border: 1px solid white;
+      border: 1.5px solid #221718;
       font-size: 16px;
       line-height: 16px;
       text-align: center;
@@ -64,10 +72,6 @@
         top: 3px;
         left: 10px;
         right: 10px;
-      }
-      &:focus {
-        border: 1px solid white;
-        box-shadow: rgb(255 53 87) 0px 0px 21px;
       }
     }
     .submit {
@@ -93,7 +97,15 @@
         background-color: rgb(139, 224, 156);
       }
     }
-    .logout {
+    .alert {
+      color: rgb(88, 88, 88);
+      font-size: 14px;
+      margin: {
+        top: 10px;
+      }
+    }
+    .logout,
+    .delete {
       cursor: pointer;
       background-color: rgb(206, 93, 93);
       color: whitesmoke;
@@ -113,6 +125,11 @@
       }
       &:hover {
         background-color: rgb(233, 133, 133);
+      }
+      &.logout {
+        margin: {
+          right: 10px;
+        }
       }
     }
   }

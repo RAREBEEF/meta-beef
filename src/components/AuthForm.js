@@ -7,7 +7,8 @@ export default function AuthForm() {
   const [password, setPassword] = useState("");
   // 기존 계정 로그인 or 회원가입
   const [newAccount, setNewAccount] = useState(false);
-  const [error, setError] = useState("");
+  const [alert, setAlert] = useState("");
+  const [findPw, setFindPw] = useState(false);
 
   const onChange = (e) => {
     const {
@@ -23,6 +24,12 @@ export default function AuthForm() {
   // 로그인 / 회원가입 토글
   const toggleAccount = () => {
     setNewAccount((prev) => !prev);
+    setFindPw(false);
+  };
+
+  const toggleFindPw = () => {
+    setFindPw((prev) => !prev);
+    setNewAccount(false);
   };
 
   // 새 계정일 경우 submit 시 createUserWithEmailAndPassword 가 input을 받아서 계정 생성 후 로그인
@@ -32,11 +39,15 @@ export default function AuthForm() {
     try {
       if (newAccount) {
         await authService.createUserWithEmailAndPassword(email, password);
-      } else {
+      } else if (!newAccount && !findPw) {
         await authService.signInWithEmailAndPassword(email, password);
+      } else if (findPw) {
+        await authService
+          .sendPasswordResetEmail(email)
+          .then(setAlert("메일이 발송되었습니다."));
       }
     } catch (error) {
-      setError(error.message);
+      setAlert(error.message);
     }
   };
 
@@ -53,29 +64,40 @@ export default function AuthForm() {
           autoComplete="username"
           className={classNames(styles.email, styles["input--text"])}
         />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={onChange}
-          autoComplete="current-password"
-          className={classNames(styles.password, styles["input--text"])}
-        />
-        <div className={styles.error}>{error}</div>
+        {!findPw && (
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={onChange}
+            autoComplete="current-password"
+            className={classNames(styles.password, styles["input--text"])}
+          />
+        )}
+        <div className={styles.alert}>{alert}</div>
 
         <div className={styles["btn-group"]}>
           <input
             className={classNames(styles.submit, styles.btn)}
             type="submit"
-            value={newAccount ? "가입하기" : "로그인"}
+            value={
+              findPw
+                ? "재설정 메일 발송"
+                : newAccount
+                ? "위 정보로 가입하기"
+                : "로그인"
+            }
           />
           <span
             onClick={toggleAccount}
             className={classNames(styles.create, styles.btn)}
           >
             {newAccount ? "기존 계정으로 로그인" : "새 계정 만들기"}
+          </span>
+          <span onClick={toggleFindPw} className={classNames(styles.btn)}>
+            {findPw ? "돌아가기" : "비밀번호 찾기"}
           </span>
         </div>
       </form>

@@ -3,7 +3,7 @@ import React from "react";
 import AuthForm from "../components/AuthForm";
 import { fbaseInstance, authService } from "../fbase";
 import styles from "./Auth.module.scss";
-import logoImg from "../images/logo512.png";
+import logoImg from "../images/logo512transparent.png";
 
 export default function auth() {
   // 소셜 로그인(팝업)

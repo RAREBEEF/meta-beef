@@ -6,6 +6,7 @@ import Meb from "../components/Meb";
 import styles from "./Profile.module.scss";
 import SubmitLoadingIon from "../icons/SubmitLoadingIcon.js";
 import defaultProfileImg from "../images/defaultProfileImg.png";
+import classNames from "classnames";
 
 export default function Profile({ userObj, refreshUser }) {
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
@@ -13,6 +14,8 @@ export default function Profile({ userObj, refreshUser }) {
   const [myMebs, setMyMebs] = useState([]);
   const [doUpdate, setDoUpdate] = useState(0);
   const [uploading, setUploading] = useState(false);
+  const [alert, setAlert] = useState("");
+
   const navigate = useNavigate();
 
   // 내 Meb들만 불러오기
@@ -37,7 +40,17 @@ export default function Profile({ userObj, refreshUser }) {
     authService.signOut();
     navigate("/");
   };
-  // 프사 & 닉네임 업데이트
+
+  const onDeleteClick = async () => {
+    const ok = window.confirm(
+      "정말 탈퇴 하시겠습니까? 작성한 글은 삭제되지 않습니다."
+    );
+    if (ok) {
+      await authService.currentUser.delete();
+      navigate("/");
+    }
+  };
+  // 프사 & 닉네임 & 비밀번호 업데이트
   // 프사의 경우 URL이 너무 길다는 에러 때문에 우선 storage에 업로드하고 해당 파일의 url을 user photo로 불러왔다.
   // 프사 업데이트 시 forEach로 내 모든 게시글의 프사 url을 업데이트한다.
   const onSubmit = async (e) => {
@@ -106,7 +119,7 @@ export default function Profile({ userObj, refreshUser }) {
     }
   };
 
-  const onChange = (e) => {
+  const onDisplayNameChange = (e) => {
     const {
       target: { value },
     } = e;
@@ -133,6 +146,16 @@ export default function Profile({ userObj, refreshUser }) {
     reader.readAsDataURL(file);
   };
 
+  const onChangePwClick = async () => {
+    try {
+      await authService
+        .sendPasswordResetEmail(authService.currentUser.email)
+        .then(setAlert("메일이 발송되었습니다."));
+    } catch (error) {
+      setAlert(error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles["profile-img"]}>
@@ -152,19 +175,31 @@ export default function Profile({ userObj, refreshUser }) {
           />
         </div>
         <div>
-          <label htmlFor="displayName" className={styles["input--name__label"]}>
+          <label
+            htmlFor="displayName"
+            className={classNames(
+              styles["input--name__label"],
+              styles["edit__label"]
+            )}
+          >
             닉네임
           </label>
           <input
             id="displayName"
-            onChange={onChange}
+            onChange={onDisplayNameChange}
             value={newDisplayName}
             type="text"
             placeholder="Display name"
-            className={styles["input--name"]}
+            className={classNames(styles["input--name"], styles["edit__input"])}
             maxLength={10}
             minLength={2}
           />
+        </div>
+        <div>
+          <button className={styles["change-pw"]} onClick={onChangePwClick}>
+            비밀번호 재설정
+          </button>
+          <div className={styles.alert}>{alert}</div>
         </div>
         <div>
           <input
@@ -181,6 +216,9 @@ export default function Profile({ userObj, refreshUser }) {
           )}
           <button className={styles.logout} onClick={onLogOutClick}>
             로그아웃
+          </button>
+          <button className={styles.delete} onClick={onDeleteClick}>
+            탈퇴하기
           </button>
         </div>
       </form>
