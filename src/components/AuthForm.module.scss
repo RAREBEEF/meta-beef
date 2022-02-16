@@ -48,7 +48,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    flex-wrap: wrap;
+    padding: {
+      left: 10px;
+      right: 10px;
+    }
     .btn {
       cursor: pointer;
       background-color: white;
