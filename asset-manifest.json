@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/meta-beef/static/css/main.6719c0cd.css",
+    "main.css": "/meta-beef/static/css/main.874fa812.css",
     "main.js": "/meta-beef/static/js/main.94f13424.js",
     "static/media/logo512transparent.png": "/meta-beef/static/media/logo512transparent.385f489bd6e5bb379edb.png",
     "index.html": "/meta-beef/index.html",
-    "main.6719c0cd.css.map": "/meta-beef/static/css/main.6719c0cd.css.map",
+    "main.874fa812.css.map": "/meta-beef/static/css/main.874fa812.css.map",
     "main.94f13424.js.map": "/meta-beef/static/js/main.94f13424.js.map"
   },
   "entrypoints": [
-    "static/css/main.6719c0cd.css",
+    "static/css/main.874fa812.css",
     "static/js/main.94f13424.js"
   ]
 }
