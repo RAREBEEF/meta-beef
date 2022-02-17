@@ -103,7 +103,7 @@ export default function MebGenerator({ userObj }) {
           value={meb}
           onChange={onChange}
           type="text"
-          placeholder="일상 공유하기"
+          placeholder="일상 공유하기 (최대 120자)"
           maxLength={120}
           required
           className={styles["input--text"]}
