@@ -4,7 +4,9 @@ import AuthForm from "../components/AuthForm";
 import { fbaseInstance, authService } from "../fbase";
 import styles from "./Auth.module.scss";
 import logoImg from "../images/logo512transparent.png";
-
+import googleIcon from "../icons/google-brands.svg";
+import githubIcon from "../icons/github-brands.svg";
+import classNames from "classnames";
 export default function auth() {
   // 소셜 로그인(팝업)
   const onSocialClick = async (e) => {
@@ -32,12 +34,20 @@ export default function auth() {
       </div>
       <AuthForm />
       <div className={styles.social}>
-        <button onClick={onSocialClick} name="google" className={styles.google}>
-          Continue with Google
-        </button>
-        <button onClick={onSocialClick} name="github" className={styles.github}>
-          Continue with Github
-        </button>
+        <img
+          src={googleIcon}
+          alt="google"
+          onClick={onSocialClick}
+          name="google"
+          className={classNames(styles.google, styles.btn)}
+        />
+        <img
+          src={githubIcon}
+          alt="github"
+          onClick={onSocialClick}
+          name="github"
+          className={classNames(styles.github, styles.btn)}
+        />
       </div>
     </div>
   );
