@@ -102,7 +102,7 @@ export default function MebGenerator({ userObj }) {
         className={styles["text-length-counter"]}
         style={{ color: meb.length > 120 ? "red" : "inherit" }}
       >
-        {meb.length} / 120 자
+        {meb.length} / 120
       </div>
       <form onSubmit={onSubmit} className={styles["input-wrapper"]}>
         <input
