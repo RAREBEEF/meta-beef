@@ -61,7 +61,13 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
       )}
       {/* 수정 탭 */}
       {editing ? (
-        <>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            className={styles["text-length-counter"]}
+            style={{ color: newMeb.length > 120 ? "red" : "inherit" }}
+          >
+            {newMeb.length} / 120
+          </div>
           <form onSubmit={onSubmit}>
             <input
               className={styles["edit__text-input"]}
@@ -87,7 +93,7 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
               </button>
             </div>
           </form>
-        </>
+        </div>
       ) : (
         // 기본 게시글 창
         <div className={styles["meb-box"]}>
