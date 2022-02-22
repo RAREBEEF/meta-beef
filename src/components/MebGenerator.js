@@ -98,12 +98,18 @@ export default function MebGenerator({ userObj }) {
 
   return (
     <div className={styles.container}>
+      <div
+        className={styles["text-length-counter"]}
+        style={{ color: meb.length > 120 ? "red" : "inherit" }}
+      >
+        {meb.length} / 120 자
+      </div>
       <form onSubmit={onSubmit} className={styles["input-wrapper"]}>
         <input
           value={meb}
           onChange={onChange}
           type="text"
-          placeholder="일상 공유하기 (최대 120자)"
+          placeholder="일상 공유하기"
           maxLength={120}
           required
           className={styles["input--text"]}

@@ -23,6 +23,9 @@
     }
 
     &.nav__item--home {
+      padding: {
+        left: 15px;
+      }
       margin: {
         left: auto;
         right: auto;
@@ -43,6 +46,10 @@
 
     &.nav__item--profile {
       padding-top: 5px;
+      padding: {
+        left: 40px;
+        right: 15px;
+      }
       margin: {
         left: auto;
         right: auto;
