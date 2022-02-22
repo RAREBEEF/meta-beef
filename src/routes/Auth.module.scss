@@ -1,3 +1,12 @@
+@media (prefers-color-scheme: dark) {
+  .btn {
+    background-color: whitesmoke;
+    &:hover {
+      background-color: rgb(202, 202, 202) !important;
+    }
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;

@@ -1,3 +1,9 @@
+@media (prefers-color-scheme: dark) {
+  .modal {
+    background-color: whitesmoke !important;
+  }
+}
+
 .container {
   cursor: pointer;
   z-index: 100;

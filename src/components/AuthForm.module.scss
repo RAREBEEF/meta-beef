@@ -1,3 +1,26 @@
+@media (prefers-color-scheme: dark) {
+  .input--text {
+    background-color: #1d1d1d;
+    color: whitesmoke !important;
+    border-color: whitesmoke !important;
+  }
+  .btn {
+    background-color: #1d1d1d !important;
+    color: whitesmoke !important;
+    border-color: whitesmoke !important;
+    &:hover {
+      background-color: rgb(78, 78, 78) !important;
+    }
+    &.submit {
+      background-color: whitesmoke !important;
+      color: #1d1d1d !important;
+      &:hover {
+        background-color: rgb(202, 202, 202) !important;
+      }
+    }
+  }
+}
+
 .container {
   .form {
     display: flex;

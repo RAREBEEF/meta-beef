@@ -44,6 +44,26 @@
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  .container,
+  .edit__text-input {
+    background-color: #1d1d1d !important;
+    border-color: whitesmoke !important;
+    color: whitesmoke !important;
+  }
+  .btn--edit,
+  .btn--delete,
+  .profile-img,
+  .meb-box__img {
+    background-color: #1d1d1d !important;
+    color: whitesmoke !important;
+    border-color: whitesmoke !important;
+    &:hover {
+      background-color: rgb(78, 78, 78) !important;
+    }
+  }
+}
+
 .container {
   position: relative;
   display: flex;

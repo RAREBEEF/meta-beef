@@ -1,3 +1,20 @@
+@media (prefers-color-scheme: dark) {
+  .edit__input {
+    background-color: #1d1d1d !important;
+    border-color: whitesmoke !important;
+    color: whitesmoke !important;
+  }
+  .input--img,
+  .change-pw {
+    background-color: #1d1d1d !important;
+    color: whitesmoke !important;
+    border-color: whitesmoke !important;
+    &:hover {
+      background-color: rgb(78, 78, 78) !important;
+    }
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;

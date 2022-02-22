@@ -1,3 +1,21 @@
+@media (prefers-color-scheme: dark) {
+  .input--text {
+    background-color: #1d1d1d;
+    color: whitesmoke !important;
+    border-color: whitesmoke !important;
+  }
+  .input--submit,
+  .input--file,
+  .btn--delete {
+    background-color: #1d1d1d !important;
+    color: whitesmoke !important;
+    border-color: whitesmoke !important;
+    &:hover {
+      background-color: rgb(78, 78, 78) !important;
+    }
+  }
+}
+
 .container {
   text-align: center;
   padding: {
