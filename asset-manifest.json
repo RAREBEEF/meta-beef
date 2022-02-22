@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/meta-beef/static/css/main.d520ae91.css",
-    "main.js": "/meta-beef/static/js/main.d9782ddf.js",
+    "main.css": "/meta-beef/static/css/main.59ec9e90.css",
+    "main.js": "/meta-beef/static/js/main.31f0dbf9.js",
     "static/media/logo512transparent.png": "/meta-beef/static/media/logo512transparent.385f489bd6e5bb379edb.png",
     "index.html": "/meta-beef/index.html",
     "static/media/github-brands.svg": "/meta-beef/static/media/github-brands.ca3156b4372e9d26fc1d699002d06890.svg",
     "static/media/google-brands.svg": "/meta-beef/static/media/google-brands.bd750df8a02b59dcc96a6ad30ea321f3.svg",
-    "main.d520ae91.css.map": "/meta-beef/static/css/main.d520ae91.css.map",
-    "main.d9782ddf.js.map": "/meta-beef/static/js/main.d9782ddf.js.map"
+    "main.59ec9e90.css.map": "/meta-beef/static/css/main.59ec9e90.css.map",
+    "main.31f0dbf9.js.map": "/meta-beef/static/js/main.31f0dbf9.js.map"
   },
   "entrypoints": [
-    "static/css/main.d520ae91.css",
-    "static/js/main.d9782ddf.js"
+    "static/css/main.59ec9e90.css",
+    "static/js/main.31f0dbf9.js"
   ]
 }
