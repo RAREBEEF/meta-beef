@@ -47,6 +47,7 @@ function App() {
 
   return (
     <div className={styles.app}>
+      <button className={styles["btn--swhite-theme"]}>다</button>
       {init ? (
         <RouterComponent
           isLoggedIn={isLoggedIn}
