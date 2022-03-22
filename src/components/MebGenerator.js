@@ -20,7 +20,7 @@ export default function MebGenerator({ userObj }) {
     e.preventDefault();
 
     // 작성 내용 없을 경우 return
-    if (!attachment && !meb) {
+    if (attachment === "" && meb === "") {
       return;
     }
 
@@ -111,7 +111,6 @@ export default function MebGenerator({ userObj }) {
           type="text"
           placeholder="일상 공유하기"
           maxLength={120}
-          required
           className={styles["input--text"]}
         />
         <input

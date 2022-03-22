@@ -96,7 +96,12 @@ export default function Meb({ mebObj, isOwner, setDoUpdate }) {
         </div>
       ) : (
         // 기본 게시글 창
-        <div className={styles["meb-box"]}>
+        <div
+          className={classNames(
+            styles["meb-box"],
+            mebObj.text === "" && styles["photo-only"]
+          )}
+        >
           <div className={styles["responsive-wrapper"]}>
             <div className={styles["meb-box__user"]}>
               <span
