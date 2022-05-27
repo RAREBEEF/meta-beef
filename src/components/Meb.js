@@ -151,12 +151,7 @@ export default function Meb({
         </div>
       ) : (
         // 기본 게시글 창
-        <div
-          className={classNames(
-            styles["meb-box"],
-            mebObj.text === "" && styles["photo-only"]
-          )}
-        >
+        <div className={classNames(styles["meb-box"])}>
           <div className={styles["responsive-wrapper"]}>
             <div className={styles["meb-box__user"]}>
               <span
@@ -176,7 +171,21 @@ export default function Meb({
                 {mebObj.displayName}
               </span>
             </div>
-            <div className={styles["meb-box__text"]}>{mebObj.text}</div>
+            <div className={styles["middle-section-wrapper"]}>
+              <div className={styles["meb-box__text"]}>{mebObj.text}</div>
+              <div className={styles["meb-box__date"]}>
+                {`${new Date(mebObj.createdAt).getFullYear()}/${
+                  new Date(mebObj.createdAt).getMonth() < 10 ? "0" : ""
+                }${new Date(mebObj.createdAt).getMonth()}/${
+                  new Date(mebObj.createdAt).getDate() < 10 ? "0" : ""
+                }${new Date(mebObj.createdAt).getDate()} ${
+                  new Date(mebObj.createdAt).getHours() < 10 ? "0" : ""
+                }${new Date(mebObj.createdAt).getHours()}:${
+                  new Date(mebObj.createdAt).getMinutes() < 10 ? "0" : ""
+                }${new Date(mebObj.createdAt).getMinutes()}`}
+                {mebObj.edited && " (수정됨)"}
+              </div>
+            </div>
           </div>
           {mebObj.attachmentUrl && (
             <div className={styles["meb-box__img"]}>
@@ -217,19 +226,6 @@ export default function Meb({
               </span>
               <LikeIcon liked={liked} />
             </button>
-          </div>
-
-          <div className={styles["meb-box__date"]}>
-            {`${new Date(mebObj.createdAt).getFullYear()}/${
-              new Date(mebObj.createdAt).getMonth() < 10 ? "0" : ""
-            }${new Date(mebObj.createdAt).getMonth()}/${
-              new Date(mebObj.createdAt).getDate() < 10 ? "0" : ""
-            }${new Date(mebObj.createdAt).getDate()} ${
-              new Date(mebObj.createdAt).getHours() < 10 ? "0" : ""
-            }${new Date(mebObj.createdAt).getHours()}:${
-              new Date(mebObj.createdAt).getMinutes() < 10 ? "0" : ""
-            }${new Date(mebObj.createdAt).getMinutes()}`}
-            {mebObj.edited && " (수정됨)"}
           </div>
         </div>
       )}
