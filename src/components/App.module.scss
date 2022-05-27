@@ -1,5 +1,6 @@
 .app {
   height: 100%;
+
   .loading {
     display: flex;
     justify-content: center;
@@ -7,6 +8,7 @@
     width: 100vw;
     height: 70vh;
   }
+
   footer {
     min-width: 320px;
     margin: 80px auto 30px;

@@ -7,6 +7,7 @@ import logoImg from "../images/logo512transparent.png";
 import googleIcon from "../icons/google-brands.svg";
 import githubIcon from "../icons/github-brands.svg";
 import classNames from "classnames";
+
 export default function auth() {
   const [alert, setAlert] = useState("");
   // 소셜 로그인(팝업)

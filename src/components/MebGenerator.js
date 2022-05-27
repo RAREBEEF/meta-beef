@@ -9,10 +9,10 @@ import styles from "./MebGenerator.module.scss";
 import classNames from "classnames";
 
 export default function MebGenerator({ userObj, isAdmin }) {
-  const [meb, setMeb] = useState("");
-  const [attachment, setAttachment] = useState("");
   const textareaRef = useRef();
   const attachmentInputRef = useRef();
+  const [meb, setMeb] = useState("");
+  const [attachment, setAttachment] = useState("");
   // 업로드 중 submit 비활성화(중복 업로드 방지)
   const [submitDisabled, setSubmitDisabled] = useState(false);
 
@@ -27,7 +27,7 @@ export default function MebGenerator({ userObj, isAdmin }) {
     currentRef.style.height = `${currentRef.scrollHeight + 2}px`;
   }, []);
 
-  // textarea 입력
+  // textarea 입력 & 줄 제한
   const onChange = (e) => {
     let currentRows = e.target.value.split("\n").length;
     const maxRows = e.target.rows;

@@ -10,6 +10,7 @@ export default function Home({ userObj }) {
   // db로부터 mebs를 받아올 state
   const [mebs, setMebs] = useState([]);
   const [page, setPage] = useState(0);
+
   // db에 어떠한 변동 혹은 작업이 발생하면 mebs를 업데이트한다.
   // 실시간으로 새로운 meb이 업로드되는 것을 확인할 수 있다.
   // 스냅샷 로직을 함수에 할당하고 클린업에서 함수를 호출하여 정리할 수 있다.
@@ -37,6 +38,7 @@ export default function Home({ userObj }) {
     };
   }, []);
 
+  // 페이지네이션
   const onPrevClick = useCallback(() => {
     if (page === 0) {
       return;

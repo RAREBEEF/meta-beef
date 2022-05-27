@@ -84,7 +84,7 @@ export default function Meb({
     currentRef.style.height = `${currentRef.scrollHeight + 4}px`;
   }, []);
 
-  // textarea 입력
+  // textarea 입력 & 줄 제한
   const onChange = (e) => {
     let currentRows = e.target.value.split("\n").length;
     const maxRows = e.target.rows;
