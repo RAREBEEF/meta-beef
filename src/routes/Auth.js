@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from "react";
+import React, { useState } from "react";
 import AuthForm from "../components/AuthForm";
 import { fbaseInstance, authService } from "../fbase";
 import styles from "./Auth.module.scss";
@@ -8,6 +8,7 @@ import googleIcon from "../icons/google-brands.svg";
 import githubIcon from "../icons/github-brands.svg";
 import classNames from "classnames";
 export default function auth() {
+  const [alert, setAlert] = useState("");
   // 소셜 로그인(팝업)
   const onSocialClick = async (e) => {
     const {
@@ -19,7 +20,11 @@ export default function auth() {
     } else if (name === "github") {
       provider = new fbaseInstance.auth.GithubAuthProvider();
     }
-    await authService.signInWithPopup(provider);
+    try {
+      await authService.signInWithPopup(provider);
+    } catch (error) {
+      setAlert(error.message);
+    }
   };
 
   return (
@@ -32,7 +37,7 @@ export default function auth() {
         />
         <span className={styles["logo-text"]}>Meta Beef</span>
       </div>
-      <AuthForm />
+      <AuthForm alert={alert} setAlert={setAlert} />
       <div className={styles.social}>
         <img
           src={googleIcon}

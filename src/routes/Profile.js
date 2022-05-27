@@ -196,12 +196,6 @@ export default function Profile({ userObj, refreshUser }) {
           />
         </div>
         <div>
-          <button className={styles["change-pw"]} onClick={onChangePwClick}>
-            비밀번호 재설정
-          </button>
-          <div className={styles.alert}>{alert}</div>
-        </div>
-        <div>
           <input
             id="submit"
             type="submit"
@@ -209,11 +203,18 @@ export default function Profile({ userObj, refreshUser }) {
             className={styles.submit}
             style={{ display: uploading ? "none" : "inline" }}
           />
+
+          <div className={styles.alert}>{alert}</div>
+        </div>
+        <div>
           {uploading && (
             <label htmlFor="submit" className={styles.submit}>
               <SubmitLoadingIon />
             </label>
           )}
+          <button className={styles["change-pw"]} onClick={onChangePwClick}>
+            비밀번호 재설정
+          </button>
           <button className={styles.logout} onClick={onLogOutClick}>
             로그아웃
           </button>
@@ -233,6 +234,7 @@ export default function Profile({ userObj, refreshUser }) {
           <Meb
             key={meb.id}
             mebObj={meb}
+            userObj={userObj}
             isOwner={meb.creatorId === userObj.uid}
             setDoUpdate={setDoUpdate}
           />

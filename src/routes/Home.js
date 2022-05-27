@@ -29,7 +29,6 @@ export default function Home({ userObj }) {
           mebArray.splice(0, 9);
         });
 
-        console.log(sliceArray);
         setMebs(sliceArray);
       });
 
@@ -65,16 +64,18 @@ export default function Home({ userObj }) {
           alt="Meta beef logo"
         />
       </div>
-      <MebGenerator userObj={userObj} />
+      <MebGenerator
+        userObj={userObj}
+        isAdmin={userObj.uid === "CPiQGqb4ambsw2RplHzeGcgODuX2"}
+      />
       <div>
         {mebs[page]?.map((meb) => (
           <Meb
             key={meb.id}
             mebObj={meb}
-            isOwner={
-              meb.creatorId === userObj.uid ||
-              userObj.uid === "CPiQGqb4ambsw2RplHzeGcgODuX2"
-            }
+            isOwner={meb.creatorId === userObj.uid}
+            isAdmin={userObj.uid === "CPiQGqb4ambsw2RplHzeGcgODuX2"}
+            userObj={userObj}
           />
         ))}
       </div>

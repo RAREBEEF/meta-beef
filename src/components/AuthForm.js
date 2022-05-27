@@ -2,12 +2,12 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import { authService } from "../fbase";
 import styles from "./AuthForm.module.scss";
-export default function AuthForm() {
+export default function AuthForm({ alert, setAlert }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // 기존 계정 로그인 or 회원가입
   const [newAccount, setNewAccount] = useState(false);
-  const [alert, setAlert] = useState("");
+
   const [findPw, setFindPw] = useState(false);
 
   const onChange = (e) => {

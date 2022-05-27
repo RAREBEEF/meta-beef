@@ -3,7 +3,6 @@
 }
 body {
   background-color: whitesmoke;
-  font-family: "Raleway", sans-serif;
   font-family: "Gowun Dodum", sans-serif;
 }
 
@@ -12,6 +11,10 @@ button {
 }
 
 input {
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+textarea {
   font-family: "Gowun Dodum", sans-serif;
 }
 

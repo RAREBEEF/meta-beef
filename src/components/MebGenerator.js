@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { storageService, dbService } from "../fbase";
 import PhotoIcon from "../icons/PhotoIcon";
@@ -8,12 +8,41 @@ import DeleteIcon from "../icons/DeleteIcon";
 import styles from "./MebGenerator.module.scss";
 import classNames from "classnames";
 
-export default function MebGenerator({ userObj }) {
+export default function MebGenerator({ userObj, isAdmin }) {
   const [meb, setMeb] = useState("");
   const [attachment, setAttachment] = useState("");
+  const textareaRef = useRef();
   const attachmentInputRef = useRef();
   // 업로드 중 submit 비활성화(중복 업로드 방지)
   const [submitDisabled, setSubmitDisabled] = useState(false);
+
+  // textarea 높이 조절
+  const resize = useCallback(() => {
+    if (!textareaRef.current) {
+      return;
+    }
+
+    const currentRef = textareaRef.current;
+    currentRef.style.height = "52px";
+    currentRef.style.height = `${currentRef.scrollHeight + 2}px`;
+  }, []);
+
+  // textarea 입력
+  const onChange = (e) => {
+    let currentRows = e.target.value.split("\n").length;
+    const maxRows = e.target.rows;
+
+    if (!isAdmin && currentRows === maxRows) {
+      return;
+    }
+
+    const {
+      target: { value },
+    } = e;
+
+    setMeb(value);
+    resize();
+  };
 
   // 작성한 내용을 db에 업로드한다.
   const onSubmit = async (e) => {
@@ -48,6 +77,7 @@ export default function MebGenerator({ userObj }) {
       displayName: userObj.displayName,
       profileImg: userObj.photoURL,
       attachmentUrl,
+      like: [],
     };
 
     // 업로드
@@ -60,14 +90,8 @@ export default function MebGenerator({ userObj }) {
         attachmentInputRef.current.value = null;
         setSubmitDisabled(false); // submit 활성화
       });
-  };
 
-  const onChange = (e) => {
-    const {
-      target: { value },
-    } = e;
-
-    setMeb(value);
+    resize();
   };
 
   // 첨부 이미지 읽기
@@ -100,17 +124,18 @@ export default function MebGenerator({ userObj }) {
     <div className={styles.container}>
       <div
         className={styles["text-length-counter"]}
-        style={{ color: meb.length > 120 ? "red" : "inherit" }}
+        style={{ color: meb.length > 150 ? "red" : "inherit" }}
       >
-        {meb.length} / 120
+        {meb.length} / 150
       </div>
       <form onSubmit={onSubmit} className={styles["input-wrapper"]}>
-        <input
+        <textarea
+          rows={15}
+          ref={textareaRef}
           value={meb}
           onChange={onChange}
-          type="text"
           placeholder="일상 공유하기"
-          maxLength={120}
+          maxLength={isAdmin ? "none" : 150}
           className={styles["input--text"]}
         />
         <input

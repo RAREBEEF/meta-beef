@@ -59,11 +59,14 @@
   }
 
   .alert {
+    text-align: center;
     color: rgb(88, 88, 88);
     font-size: 14px;
     margin: {
       top: 10px;
       bottom: 10px;
+      left: 10px;
+      right: 10px;
     }
   }
 
