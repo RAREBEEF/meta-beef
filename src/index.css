@@ -4,6 +4,19 @@
 body {
   background-color: whitesmoke;
   font-family: "Raleway", sans-serif;
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+button {
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+input {
+  font-family: "Gowun Dodum", sans-serif;
+}
+
+a {
+  font-family: "Gowun Dodum", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

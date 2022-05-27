@@ -94,6 +94,7 @@
   border-radius: 50px;
   background-color: white;
   box-shadow: 3px 3px 1px gray;
+
   padding: {
     top: 10px;
     left: 10px;
@@ -153,7 +154,7 @@
       padding: {
         left: 10px;
         right: 10px;
-        top: 6px;
+        top: 3px;
         bottom: 5px;
       }
       margin: {
@@ -175,7 +176,7 @@
       padding: {
         left: 10px;
         right: 10px;
-        top: 6px;
+        top: 3px;
         bottom: 5px;
       }
       &:hover {
@@ -266,12 +267,12 @@
       }
       .meb-box__img {
         margin: auto;
-        width: auto;
-        height: auto;
+        width: fit-content;
+        height: fit-content;
         border-radius: 50px;
         border: none;
         img {
-          width: 80%;
+          width: 60%;
           height: auto;
         }
       }
