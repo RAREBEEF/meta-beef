@@ -5,6 +5,11 @@
 }
 
 @media screen and (max-width: 600px) {
+  .nav__item--home {
+    padding: {
+      left: 0 !important;
+    }
+  }
   .nav__item--profile {
     position: absolute;
     right: 0;
