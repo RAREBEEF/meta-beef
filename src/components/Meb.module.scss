@@ -282,7 +282,9 @@
         filter: brightness(0.8);
       }
       img {
-        height: 80px;
+        object-fit: cover;
+        min-height: 80px;
+        min-width: 80px;
       }
     }
 
