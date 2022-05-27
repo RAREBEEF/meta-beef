@@ -3,23 +3,23 @@
 }
 body {
   background-color: whitesmoke;
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Gowun Dodum", sans-serif !important;
 }
 
 button {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Gowun Dodum", sans-serif !important;
 }
 
 input {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Gowun Dodum", sans-serif !important;
 }
 
 textarea {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Gowun Dodum", sans-serif !important;
 }
 
 a {
-  font-family: "Gowun Dodum", sans-serif;
+  font-family: "Gowun Dodum", sans-serif !important;
 }
 
 @media (prefers-color-scheme: dark) {
