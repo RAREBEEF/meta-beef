@@ -68,7 +68,7 @@ export default function Home({ userObj }) {
       </div>
       <MebGenerator
         userObj={userObj}
-        isAdmin={userObj.uid === "CPiQGqb4ambsw2RplHzeGcgODuX2"}
+        isAdmin={userObj?.uid === "CPiQGqb4ambsw2RplHzeGcgODuX2"}
       />
       <div>
         {mebs[page]?.map((meb) => (
@@ -76,7 +76,7 @@ export default function Home({ userObj }) {
             key={meb.id}
             mebObj={meb}
             isOwner={meb.creatorId === userObj.uid}
-            isAdmin={userObj.uid === "CPiQGqb4ambsw2RplHzeGcgODuX2"}
+            isAdmin={userObj?.uid === "CPiQGqb4ambsw2RplHzeGcgODuX2"}
             userObj={userObj}
           />
         ))}
