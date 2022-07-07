@@ -8,7 +8,7 @@ import DeleteIcon from "../icons/DeleteIcon";
 import styles from "./MebGenerator.module.scss";
 import classNames from "classnames";
 
-export default function MebGenerator({ userObj, isAdmin }) {
+export default function MebGenerator({ userObj }) {
   const textareaRef = useRef();
   const attachmentInputRef = useRef();
   const [meb, setMeb] = useState("");
@@ -32,7 +32,7 @@ export default function MebGenerator({ userObj, isAdmin }) {
     let currentRows = e.target.value.split("\n").length;
     const maxRows = e.target.rows;
 
-    if (!isAdmin && currentRows === maxRows) {
+    if (currentRows === maxRows) {
       return;
     }
 
@@ -135,7 +135,7 @@ export default function MebGenerator({ userObj, isAdmin }) {
           value={meb}
           onChange={onChange}
           placeholder="일상 공유하기"
-          maxLength={isAdmin ? "none" : 150}
+          maxLength={150}
           className={styles["input--text"]}
         />
         <input

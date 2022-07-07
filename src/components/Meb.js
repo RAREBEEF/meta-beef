@@ -7,13 +7,7 @@ import LikeIcon from "../icons/LikeIcon";
 import ImgModal from "./ImgModal";
 import styles from "./Meb.module.scss";
 
-export default function Meb({
-  mebObj,
-  isOwner,
-  isAdmin,
-  setDoUpdate,
-  userObj,
-}) {
+export default function Meb({ mebObj, isOwner, setDoUpdate, userObj }) {
   const textareaRef = useRef();
   // Meb 수정 모드 토글
   const [editing, setEditing] = useState(false);
@@ -89,7 +83,7 @@ export default function Meb({
     let currentRows = e.target.value.split("\n").length;
     const maxRows = e.target.rows;
 
-    if (!isAdmin && currentRows === maxRows) {
+    if (currentRows === maxRows) {
       return;
     }
 
@@ -130,7 +124,7 @@ export default function Meb({
               placeholder="내용을 입력하세요."
               value={newMeb}
               required
-              maxLength={isAdmin ? "none" : 150}
+              maxLength={150}
               onFocus={resize}
             />
             <div className={styles["edit__btn-wrapper"]}>
@@ -199,7 +193,7 @@ export default function Meb({
             </div>
           )}
           <div className={styles["btn-wrapper"]}>
-            {(isOwner || isAdmin) && (
+            {isOwner && (
               <>
                 <button
                   onClick={onDeleteClick}
