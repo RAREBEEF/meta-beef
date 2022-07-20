@@ -169,8 +169,8 @@ export default function Meb({ mebObj, isOwner, setDoUpdate, userObj }) {
               <div className={styles["meb-box__text"]}>{mebObj.text}</div>
               <div className={styles["meb-box__date"]}>
                 {`${new Date(mebObj.createdAt).getFullYear()}/${
-                  new Date(mebObj.createdAt).getMonth() < 10 ? "0" : ""
-                }${new Date(mebObj.createdAt).getMonth()}/${
+                  new Date(mebObj.createdAt).getMonth() + 1 < 10 ? "0" : ""
+                }${new Date(mebObj.createdAt).getMonth() + 1}/${
                   new Date(mebObj.createdAt).getDate() < 10 ? "0" : ""
                 }${new Date(mebObj.createdAt).getDate()} ${
                   new Date(mebObj.createdAt).getHours() < 10 ? "0" : ""
