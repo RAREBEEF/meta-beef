@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authService, dbService, storageService } from "../fbase";
 import { v4 as uuidv4 } from "uuid";
@@ -9,6 +9,7 @@ import defaultProfileImg from "../images/defaultProfileImg.png";
 import classNames from "classnames";
 
 export default function Profile({ userObj, refreshUser }) {
+  const testerId = "ZsTy9n6HxzP0U0NUt2I3Cpf5FK82";
   const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
   const [attachment, setAttachment] = useState("");
   const [myMebs, setMyMebs] = useState([]);
@@ -19,7 +20,7 @@ export default function Profile({ userObj, refreshUser }) {
   const navigate = useNavigate();
 
   // 내 Meb들만 불러오기
-  const getMyMeb = async () => {
+  const getMyMeb = useCallback(async () => {
     const myMebData = await dbService
       .collection("mebs")
       .where("creatorId", "==", userObj.uid)
@@ -30,18 +31,26 @@ export default function Profile({ userObj, refreshUser }) {
       ...doc.data(),
     }));
     setMyMebs(myMebArray);
-  };
+  }, [userObj.uid]);
 
   useEffect(() => {
     getMyMeb();
-  }, [doUpdate]);
+  }, [doUpdate, getMyMeb]);
 
   const onLogOutClick = () => {
     authService.signOut();
     navigate("/");
   };
 
-  const onDeleteClick = async () => {
+  const onDeleteClick = async (e) => {
+    e.preventDefault();
+    if (!authService.currentUser) {
+      return;
+    }
+    if (authService.currentUser.uid === testerId) {
+      window.alert("테스트 계정의 정보는 변경하실 수 없습니다.");
+      return;
+    }
     const ok = window.confirm(
       "정말 탈퇴하시겠습니까?\n작성한 글은 삭제되지 않습니다."
     );
@@ -52,9 +61,17 @@ export default function Profile({ userObj, refreshUser }) {
   };
   // 프사 & 닉네임 & 비밀번호 업데이트
   // 프사의 경우 URL이 너무 길다는 에러 때문에 우선 storage에 업로드하고 해당 파일의 url을 user photo로 불러왔다.
-  // 프사 업데이트 시 forEach로 내 모든 게시글의 프사 url을 업데이트한다.
+  // 프사 업데이트 시 내 모든 게시글의 프사 url을 업데이트한다.
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (!authService.currentUser) {
+      return;
+    }
+    if (authService.currentUser.uid === testerId) {
+      window.alert("테스트 계정의 정보는 변경하실 수 없습니다.");
+      return;
+    }
 
     // 변경사항이 있을 경우
     if (userObj.displayName !== newDisplayName || attachment !== "") {
@@ -65,7 +82,7 @@ export default function Profile({ userObj, refreshUser }) {
 
       // 닉네임에 변경사항이 있을 경우
       if (newDisplayName !== "") {
-        await myMebs.forEach((meb) => {
+        myMebs.forEach((meb) => {
           if (meb.displayName !== newDisplayName) {
             dbService
               .doc(`mebs/${meb.id}`)
@@ -94,7 +111,7 @@ export default function Profile({ userObj, refreshUser }) {
         newProfileImgUrl = await response.ref.getDownloadURL();
 
         // 내 모든 글의 프사 변경
-        await myMebs.forEach((meb) => {
+        myMebs.forEach((meb) => {
           if (meb.profileImg !== newProfileImgUrl) {
             dbService
               .doc(`mebs/${meb.id}`)

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import RouterComponent from "./Router";
 import { authService } from "../fbase";
-import defaultProfileImg from "../images/defaultProfileImg.png";
+// import defaultProfileImg from "../images/defaultProfileImg.png";
 import LoadingIcon from "../icons/LoadingIcon";
 
 function App() {
@@ -24,7 +24,9 @@ function App() {
           displayName: user.displayName ? user.displayName : "익명", // 신규 가입시 닉네임 --> "익명"
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
-          photoURL: user.photoURL ? user.photoURL : defaultProfileImg, // 신규 가입시 기본 프사
+          photoURL: user.photoURL
+            ? user.photoURL
+            : "https://firebasestorage.googleapis.com/v0/b/meta-beef.appspot.com/o/defaultProfileImg.png?alt=media&token=a6ba2add-766b-48d5-9020-a852111f6aeb", // 신규 가입시 기본 프사
         });
       } else {
         setIsLoggedIn(false);

@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import { authService } from "../fbase";
 import styles from "./AuthForm.module.scss";
+
 export default function AuthForm({ alert, setAlert }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,7 +41,12 @@ export default function AuthForm({ alert, setAlert }) {
       if (newAccount) {
         await authService.createUserWithEmailAndPassword(email, password);
       } else if (!newAccount && !findPw) {
-        await authService.signInWithEmailAndPassword(email, password);
+        let isTest = false;
+        if (email === "test" && password === "test") isTest = true;
+        await authService.signInWithEmailAndPassword(
+          isTest ? "test@test.com" : email,
+          isTest ? "test@test.com" : password
+        );
       } else if (findPw) {
         await authService
           .sendPasswordResetEmail(email)
