@@ -1,64 +1,80 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Meb from "../components/Meb";
 import MebGenerator from "../components/MebGenerator";
 import { dbService } from "../fbase";
 import styles from "./Home.module.scss";
 import logoImg from "../images/logo512transparent.png";
-import classNames from "classnames";
+import LoadingIcon from "../icons/LoadingIcon";
 
 export default function Home({ userObj }) {
-  // db로부터 mebs를 받아올 state
+  const [init, setInit] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const loadMoreBtnRef = useRef(null);
   const [mebs, setMebs] = useState([]);
-  const [page, setPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [hasNextMeb, setHasNextMeb] = useState(true);
 
-  // db에 어떠한 변동 혹은 작업이 발생하면 mebs를 업데이트한다.
-  // 실시간으로 새로운 meb이 업로드되는 것을 확인할 수 있다.
-  // 스냅샷 로직을 함수에 할당하고 클린업에서 함수를 호출하여 정리할 수 있다.
-  useEffect(() => {
-    const snapshotFunction = dbService
+  // meb 불러오기
+  const getMebs = useCallback(() => {
+    const unsub = dbService
       .collection("mebs")
       .orderBy("createdAt", "desc")
+      .limit(limit)
       .onSnapshot((snapshot) => {
-        const mebArray = snapshot.docs.map((doc) => ({
+        const data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        const sliceArray = [];
 
-        mebArray.forEach((meb, i) => {
-          sliceArray.push([...mebArray.slice(i, i + 10)]);
-          mebArray.splice(0, 9);
-        });
-
-        setMebs(sliceArray);
+        setMebs(data);
+        if (data.length + 30 < limit) setHasNextMeb(false);
+        setLoading(false);
       });
 
+    return unsub;
+  }, [limit]);
+
+  // 최초 로드
+  useEffect(() => {
+    const unsub = getMebs();
+
     return () => {
-      snapshotFunction();
+      unsub();
     };
-  }, []);
+  }, [getMebs]);
 
-  // 페이지네이션
-  const onPrevClick = useCallback(() => {
-    if (page === 0) {
-      return;
-    }
+  // 최초 로드 완료시
+  useEffect(() => {
+    mebs.length !== 0 && setInit(true);
+  }, [mebs.length]);
 
-    setPage((prev) => prev - 1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
+  // 더 불러오기
+  // 이미 불러오는 중이거나 다음 meb이 없을 경우 실행x
+  const onLoadMore = useCallback(() => {
+    if (loading || !hasNextMeb) return;
+    setLoading(true);
 
-  const onNextClick = useCallback(() => {
-    if (page === mebs.length - 1) {
-      return;
-    }
+    const increase = limit + 10;
+    getMebs(increase);
+    setLimit(increase);
+  }, [loading, getMebs, hasNextMeb, limit]);
 
-    setPage((prev) => prev + 1);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [mebs.length, page]);
+  // 인피니티 스크롤 옵저버 생성
+  useEffect(() => {
+    if (!init) return;
+
+    const scrollTrigger = new IntersectionObserver(
+      (entries) => {
+        entries[0].isIntersecting && onLoadMore();
+      },
+      { threshold: 1 }
+    );
+
+    loadMoreBtnRef.current && scrollTrigger.observe(loadMoreBtnRef.current);
+  }, [init, onLoadMore]);
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <div className={styles.logo}>
         <img
           className={styles["logo-img"]}
@@ -67,8 +83,8 @@ export default function Home({ userObj }) {
         />
       </div>
       <MebGenerator userObj={userObj} />
-      <div>
-        {mebs[page]?.map((meb) => (
+      <section>
+        {mebs?.map((meb) => (
           <Meb
             key={meb.id}
             mebObj={meb}
@@ -76,46 +92,22 @@ export default function Home({ userObj }) {
             userObj={userObj}
           />
         ))}
-      </div>
-      <div className={styles.pagination}>
-        <span
-          className={classNames(
-            styles["pagination__navigation"],
-            page === 0 && styles.deactive
-          )}
-          onClick={onPrevClick}
+      </section>
+      {loading ? (
+        <div
+          style={{ width: "100%", display: "flex", justifyContent: "center" }}
         >
-          {"<prev"}
-        </span>
-        {mebs.map((el, i) => (
-          <span
-            className={classNames(
-              styles["pagination__page"],
-              page === i && styles.active
-            )}
-            key={i}
-            onClick={() => {
-              if (page === i) {
-                return;
-              }
-
-              setPage(i);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
-            {i + 1}
-          </span>
-        ))}
-        <span
-          onClick={onNextClick}
-          className={classNames(
-            styles["pagination__navigation"],
-            page === mebs.length - 1 && styles.deactive
-          )}
+          <LoadingIcon />
+        </div>
+      ) : (
+        <button
+          onClick={onLoadMore}
+          ref={loadMoreBtnRef}
+          style={{ width: "100%", pointerEvents: "none", opacity: 0 }}
         >
-          {"next>"}
-        </span>
-      </div>
-    </div>
+          load More
+        </button>
+      )}
+    </main>
   );
 }

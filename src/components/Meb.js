@@ -6,6 +6,7 @@ import EditIcon from "../icons/EditIcon";
 import LikeIcon from "../icons/LikeIcon";
 import ImgModal from "./ImgModal";
 import styles from "./Meb.module.scss";
+import defaultProfileImg from "../images/defaultProfileImg.png";
 
 export default function Meb({ mebObj, isOwner, setDoUpdate, userObj }) {
   const textareaRef = useRef();
@@ -95,6 +96,10 @@ export default function Meb({ mebObj, isOwner, setDoUpdate, userObj }) {
     resize();
   };
 
+  const onImgError = (e) => {
+    e.target.src = defaultProfileImg;
+  };
+
   return (
     <div className={styles.container}>
       {/* 이미지 모달 */}
@@ -154,7 +159,11 @@ export default function Meb({ mebObj, isOwner, setDoUpdate, userObj }) {
                   setModalActive("profile");
                 }}
               >
-                <img src={mebObj.profileImg} alt="profile" />
+                <img
+                  src={mebObj.profileImg}
+                  alt="profile"
+                  onError={onImgError}
+                />
               </span>
               <span
                 className={styles["username"]}

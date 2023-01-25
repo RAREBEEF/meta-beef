@@ -173,10 +173,18 @@ export default function Profile({ userObj, refreshUser }) {
     }
   };
 
+  const onImgError = (e) => {
+    e.target.src = defaultProfileImg;
+  };
+
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <div className={styles["profile-img"]}>
-        <img src={attachment ? attachment : userObj.photoURL} alt="Profile" />
+        <img
+          src={attachment ? attachment : userObj.photoURL}
+          alt="Profile"
+          onError={onImgError}
+        />
       </div>
       <form onSubmit={onSubmit} className={styles["form"]}>
         <div>
@@ -257,6 +265,6 @@ export default function Profile({ userObj, refreshUser }) {
           />
         ))
       )}
-    </div>
+    </main>
   );
 }

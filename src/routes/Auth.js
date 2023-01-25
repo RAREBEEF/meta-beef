@@ -29,7 +29,7 @@ export default function auth() {
   };
 
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       <div className={styles.logo}>
         <img
           className={styles["logo-img"]}
@@ -55,6 +55,6 @@ export default function auth() {
           className={classNames(styles.github, styles.btn)}
         />
       </div>
-    </div>
+    </main>
   );
 }

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import RouterComponent from "./Router";
 import { authService } from "../fbase";
-// import defaultProfileImg from "../images/defaultProfileImg.png";
 import LoadingIcon from "../icons/LoadingIcon";
 
 function App() {

@@ -2,8 +2,12 @@ import classNames from "classnames";
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navigation.module.scss";
+import defaultProfileImg from "../images/defaultProfileImg.png";
 
 export default function Navigation({ userObj }) {
+  const onImgError = (e) => {
+    e.target.src = defaultProfileImg;
+  };
   return (
     <ul className={styles.nav}>
       <li
@@ -25,7 +29,7 @@ export default function Navigation({ userObj }) {
               {userObj.displayName}의 프로필
             </span>
             <span className={styles["profile-img"]}>
-              <img src={userObj.photoURL} alt="Profile" />
+              <img src={userObj.photoURL} alt="Profile" onError={onImgError} />
             </span>
           </Link>
         )}
